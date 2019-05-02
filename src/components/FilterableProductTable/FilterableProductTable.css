@@ -1,0 +1,28 @@
+.FilterableProductTable {
+    width: 200px;
+    padding: 1rem;
+}
+
+.ProductSearch {
+    margin-bottom: 1rem;
+}
+
+.search-bar {
+    width: 100%;
+}
+
+th, tr {
+    text-align: left;
+}
+
+.small {
+    font-size: 11px;
+}
+
+.CategoryRow {
+    padding-top: 1rem;
+}
+
+.out-of-stock {
+    color: red;
+}
