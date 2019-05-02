@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 // Components
 import ProductSearch from './ProductSearch';
@@ -9,27 +10,23 @@ import ProductRow from './ProductTable/ProductRow';
 // Style
 import './FilterableProductTable.css';
 
-// Data
-import data from '../../data/products';
-
 // Util
 import utilities from '../../utilities/productFilterUtilities';
 
 class FilterableProductTable extends Component {
   state = {
-    products: [],
     searchQuery: '',
     onlyInStock: false,
   }
 
-  componentDidMount = () => {
-    this.setState({
-      products: data,
-    }, () => {
-      // eslint-disable-next-line no-console
-      console.log(this.state);
-    });
-  }
+  // componentDidMount = () => {
+  //   this.setState({
+  //     products: data,
+  //   }, () => {
+  //     // eslint-disable-next-line no-console
+  //     console.log(this.state);
+  //   });
+  // }
 
   handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -45,12 +42,8 @@ class FilterableProductTable extends Component {
     });
   }
 
-  filterProducts = () => {
-    const {
-      products,
-      onlyInStock,
-    } = this.state;
-
+  filterProducts = (products) => {
+    const { onlyInStock } = this.state;
     let { searchQuery } = this.state;
 
     // Makes sure that case is ignored in search filter
@@ -65,7 +58,7 @@ class FilterableProductTable extends Component {
   }
 
   renderList = () => {
-    const { products } = this.state;
+    const { products } = this.props;
     const { createCategoryCollections } = utilities;
 
     // Get an array of products that have been filtered by the method filterProducts()
@@ -133,4 +126,13 @@ class FilterableProductTable extends Component {
     );
   }
 }
+
+FilterableProductTable.propTypes = {
+  products: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    stocked: PropTypes.bool.isRequired,
+  })).isRequired,
+};
+
 export default FilterableProductTable;
